@@ -12,31 +12,32 @@ const deleteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
 
 function getStatusLabel(status) {
     if (status === 'interview') {
-        return '<span>Interview</span>';
+        return '<span class="inline-block mt-2 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide bg-green-100 text-green-700">Interview</span>';
     }
     if (status === 'rejected') {
-        return '<span>Rejected</span>';
+        return '<span class="inline-block mt-2 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide bg-red-100 text-red-700">Rejected</span>';
     }
-    return '<span>Not Applied</span>';
+    return '<span class="inline-block mt-2 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide bg-[#EEF4FF] text-[#2563EB]">Not Applied</span>';
 }
 function createJobCard(job) {
     const card = document.createElement('div');
+    card.className = 'bg-white border border-gray-200 rounded-lg p-5';
     card.setAttribute('data-id', job.id);
 
     card.innerHTML = `
-        <div>
-            <h3>${job.companyName}</h3>
-            <button data-action="delete" data-id="${job.id}" title="Delete job">
+        <div class="flex justify-between items-start">
+            <h3 class="text-[16px] font-bold text-[#1E1E1E]">${job.companyName}</h3>
+            <button class="text-gray-400 hover:text-red-500 transition p-0.5 cursor-pointer" data-action="delete" data-id="${job.id}" title="Delete job">
                 ${deleteIcon}
             </button>
         </div>
-        <p>${job.position}</p>
-        <p>${job.location} &bull; ${job.type} &bull; ${job.salary}</p>
+        <p class="text-[14px] font-medium text-[#4B5563] mt-0.5">${job.position}</p>
+        <p class="text-[14px] text-[#9CA3AF] mt-2">${job.location} &bull; ${job.type} &bull; ${job.salary}</p>
         ${getStatusLabel(job.status)}
-        <p>${job.description}</p>
-        <div>
-            <button class="btn--interview ${job.status === 'interview' ? 'active' : ''}" data-action="interview" data-id="${job.id}">Interview</button>
-            <button class="btn--rejected ${job.status === 'rejected' ? 'active' : ''}" data-action="rejected" data-id="${job.id}">Rejected</button>
+        <p class="text-[14px] text-[#4B5563] opacity-80 leading-relaxed mt-2.5">${job.description}</p>
+        <div class="flex gap-2 mt-3.5">
+            <button class="btn--interview px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wide bg-green-500 text-white hover:bg-green-600 transition cursor-pointer ${job.status === 'interview' ? 'active' : ''}" data-action="interview" data-id="${job.id}">Interview</button>
+            <button class="btn--rejected px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wide bg-red-500 text-white hover:bg-red-600 transition cursor-pointer ${job.status === 'rejected' ? 'active' : ''}" data-action="rejected" data-id="${job.id}">Rejected</button>
         </div>
     `;
 
@@ -77,6 +78,7 @@ function updateCounts() {
     const rejectedJobs = jobsData.filter(function (j) {
         return j.status === 'rejected';
     });
+
     totalCountEl.textContent = jobsData.length;
     interviewCountEl.textContent = interviewJobs.length;
     rejectedCountEl.textContent = rejectedJobs.length;
