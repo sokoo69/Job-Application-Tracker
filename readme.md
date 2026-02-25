@@ -39,12 +39,12 @@ querySelectorAll() ;
                  --- Answer---
        Event Delegation means adding one event listener to a parent element instead of adding many listeners to child elements.
 
-         it works because of event bubbling.
+   
+it works because of event bubbling.
          it is useful because it saves code and improves performance.
 
 
-
-5. What is the difference between preventDefault() and stopPropagation() methods?
+6. What is the difference between preventDefault() and stopPropagation() methods?
                    --- Answer---
 both are "Stop" commands, but they are used for different reasons.
 
